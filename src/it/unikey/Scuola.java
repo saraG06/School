@@ -25,12 +25,14 @@ public class Scuola {
        return resultSet;
     }
 
-    /*
+
     public TreeSet<Persona> getArrayUtenti(Comparator<Persona> T){ //overload per scegliere l'ordinamento
         TreeSet<Persona> utentiOrdinati = new TreeSet<>(T);
-        utentiOrdinati = this.utenti;
+        for(Persona p : this.utenti){
+            utentiOrdinati.add(p);
+        }
         return utentiOrdinati;
-    }*/
+    }
 
     public TreeSet<Persona> getUtenti() {
         return utenti;
