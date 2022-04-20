@@ -2,17 +2,18 @@ package it.unikey;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Platform {
 
     private TreeSet<Student> students;
     private TreeSet<Tutor> tutors;
+    private Map<Tutor, List<Student>> tutorMap;
 
     public Platform(){
         this.students = new TreeSet<>();
         this.tutors = new TreeSet<>();
+        this.tutorMap = new TreeMap<>();
     }
 
     public void start(){
@@ -97,14 +98,51 @@ public class Platform {
     }
 
     public void showStudents(){
+        Student[] array = new Student[students.size()];
+        int index = 0;
         for(Student s : students){
-            System.out.println(s);
+            array[index++] = s;
+        }
+        for(Student s : array){
+            System.out.println(s.toString());
         }
     }
 
     public void showTutors(){
+        Tutor[] array = new Tutor[tutors.size()];
+        int index = 0;
         for(Tutor t : tutors){
-            System.out.println(t);
+           array[index++] = t;
+        }
+        for(Tutor t : array){
+            System.out.println(t.toString());
+        }
+    }
+
+    public void setStudentToTutor(Tutor t, Student s){
+        List<Student> list;
+        if(tutorMap.size() == 0){
+            list = new ArrayList<>();
+            list.add(s);
+            tutorMap.put(t,list);
+        }else{
+            for(Map.Entry tm : tutorMap.entrySet()) {
+                if (tm.equals(t)) {
+                    list = new ArrayList<>();
+                    list.addAll((Collection<Student>) tm.getValue());
+                    list.add(s);
+                    tutorMap.put(t, list);
+                }
+            }
+        }
+
+    }
+
+    public void getTutorMap(Tutor t){
+        for(Map.Entry tm : tutorMap.entrySet()){
+            if(tm.getKey().equals(t)){
+                System.out.println(tm.getValue());
+            }
         }
     }
 }

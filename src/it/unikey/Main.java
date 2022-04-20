@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         Platform school = new Platform();
+
         //username = admin, password = admin
         school.start();
 
