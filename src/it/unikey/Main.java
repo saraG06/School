@@ -1,5 +1,8 @@
 package it.unikey;
 
+import java.io.Console;
+import java.io.IOError;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -79,7 +82,9 @@ public class Main {
         Scuola s = new Scuola();
         ComparatorPersonaNome cpn = new ComparatorPersonaNome();
         boolean b;
+
         Main.init();
+
         do {
             b = Main.start(s);
             /*
