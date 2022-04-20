@@ -1,6 +1,5 @@
 package it.unikey;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -18,9 +17,10 @@ public class Tutor {
     }
 
     public static String username = "Chiara2001";
-    public static String password = "ciao12";
+    public static String password = "1234";
     static public String nome;
     static public String cognome;
+    static public DateTimeFormatter dataNascita;
 
     public Tutor(String nome, String cognome, String username, String password) {
         this.nome = nome;
@@ -44,6 +44,8 @@ public class Tutor {
         String nome = new Scanner(System.in).nextLine();
         System.out.println("Inserire il cognome del tutor: ");
         String cognome = new Scanner(System.in).nextLine();
+        System.out.println("Inserire la data di nascita del tutor: ");
+
         System.out.println("Inserire l'username del tutor: ");
         String username = new Scanner(System.in).nextLine();
         System.out.println("Inserire la password del tutor: ");
@@ -58,7 +60,7 @@ public class Tutor {
         String usernametutor = new Scanner(System.in).nextLine();
         System.out.println("Inserire password tutor: ");
         String passwordtutor = new Scanner(System.in).nextLine();
-        Tutor t1 = new Tutor(nome, cognome,username,password);
+        Tutor t1 = new Tutor(nome,cognome,username,password);
         if(usernametutor.equals(t1.username) && passwordtutor.equals(t1.password)){
             System.out.println(nome);
             System.out.println(cognome);
@@ -68,6 +70,6 @@ public class Tutor {
 
     @Override
     public String toString() {
-        return "Il nome del tutor è: " + nome + "\n" + "Il cognome è: " + cognome;
+        return "Il nome del tutor è: " + nome + "\n" + "Il cognome è: " + cognome + "\n" + "Nato il: " + dataNascita;
     }
 }

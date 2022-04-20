@@ -5,19 +5,18 @@ import java.util.Scanner;
 
 public class Studente {
 
+    public static String username = "Leo94";
+    public static String password = "1234";
+    static public String nome;
+    static public String cognome;
+    static public String matricola = "qwerty";
+
     public Studente(String nome, String cognome, String matricola, String username, String password){
       this.nome = nome;
       this.cognome = cognome;
         this.username = username;
         this.password = password;
     }
-
-    public static String username;
-    public static String password;
-    static public String nome;
-    static public String cognome;
-    static public String matricola;
-
 
     public String getNome() {
         return nome;
