@@ -1,5 +1,6 @@
 package it.unikey;
 
+import javax.swing.*;
 import java.io.Console;
 import java.time.LocalDate;
 import java.util.*;
@@ -31,20 +32,21 @@ public class Scuola {
     }
 
     public boolean login(){
-        Console cnsl = System.console();
         boolean log= false;
         Scanner sc= new Scanner(System.in);
         System.out.println("Accesso menu");
         System.out.println("Username");
         String username= sc.nextLine();
         System.out.println("Password");
-        String password= "";
-        if (cnsl == null) {
-            System.out.println("No console available");
+        String password;
+        final String message= "Enter password";
+        if(System.console()==null){
+            final JPasswordField pf= new JPasswordField();
+            pf.getPassword();
+            pf.setEchoChar('*');
+            password= JOptionPane.showConfirmDialog(null, pf, message, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE ) == JOptionPane.OK_OPTION ? new String(pf.getPassword() ) : "";
         } else {
-            char[] pass = cnsl.readPassword(
-                    "Enter password : ");
-            password= Arrays.toString(pass);
+            password= new String(System.console().readPassword("%s> ", message));
         }
         for(Tutor t: listaTutor) {
             if (t.getUsername().equals(username) && t.getPassword().equals(password)) {
