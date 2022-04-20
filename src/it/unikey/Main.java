@@ -1,5 +1,9 @@
 package it.unikey;
 
+import javax.swing.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.io.Console;
 import java.util.Scanner;
 
 public class Main {
@@ -29,8 +33,37 @@ public class Main {
         do{
             System.out.println("inserisci user : ");
             String us = sc.nextLine() ;
-            System.out.println("inserisci pass : ");
-            String ps = sc.nextLine() ;
+//            System.out.println("inserisci pass : ");
+//           // String ps = sc.nextLine() ;
+//            Console con = System.console() ;
+//            char[] cp =con.readPassword("[%s]", "Password:") ;
+//            String ps = new String(cp) ;
+
+            final JPasswordField jpf = new JPasswordField();
+            JOptionPane jop = new JOptionPane(jpf, JOptionPane.QUESTION_MESSAGE,
+                    JOptionPane.OK_CANCEL_OPTION);
+            JDialog dialog = jop.createDialog("Password:");
+            dialog.addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentShown(ComponentEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            jpf.requestFocusInWindow();
+                        }
+                    });
+                }
+            });
+            dialog.setVisible(true);
+            int result = (Integer) jop.getValue();
+            dialog.dispose();
+            char[] password = null;
+            if (result == JOptionPane.OK_OPTION) {
+                password = jpf.getPassword();
+            }
+
+
+            String ps = new String(password) ;
             accesso = us.equals(user) && ps.equals(pass) ;
         }while (!accesso);
 
