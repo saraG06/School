@@ -1,6 +1,7 @@
 package it.unikey;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -81,10 +82,11 @@ public class Main {
         Main.init();
         do {
             b = Main.start(s);
-            /*for(Object p : s.getArrayUtentiCrescente()){
+            /*
+            for(Object p : s.getArrayUtentiCrescente()){
                 System.out.println(p);
-            }*/
-            System.out.println(s.getArrayUtenti(cpn));
+            }
+            s.getArrayUtenti(cpn); */
         }while (b);
 
         String input;
@@ -101,17 +103,23 @@ public class Main {
                 System.out.println(s.getTutorList());
                 tutor = new Scanner(System.in).next();
 
+
+
                 System.out.println("Scegli lo studente dalla lista seguente:");
                 System.out.println(s.getStudentList());
                 studente = new Scanner(System.in).next();
 
-                s.assegnaTutor(tutor.substring(0,1).toUpperCase()+tutor.substring(1).toLowerCase(),studente.substring(0,1).toUpperCase()+studente.substring(1).toLowerCase());
+
+
+                s.assegnaTutor(s.getSpecificTutor(tutor),s.getSpecificStudent(studente));
 
                 b = true;
             } else {
                 b = false;
             }
         }while (b);
+
+        System.out.println(s.getAssegnazioneTutor());
 
         System.out.println("Programma Terminato!");
 

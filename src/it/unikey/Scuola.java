@@ -7,11 +7,13 @@ import java.util.TreeSet;
 
 public class Scuola {
     private TreeSet<Persona> utenti;
-    private TreeMap<String, ArrayList<String>> assegnazioneTutor;
-    private ArrayList<String> studenti;
+    private TreeMap<Tutor, ArrayList<Studente>> assegnazioneTutor;
+    private ArrayList<Studente> studenti;
 
     public Scuola(){
         this.utenti = new TreeSet<>();
+        this.studenti = new ArrayList<>();
+        this.assegnazioneTutor = new TreeMap<>();
     }
 
     public void addUtente(Persona p){
@@ -23,11 +25,13 @@ public class Scuola {
        return resultSet;
     }
 
+    /*
     public TreeSet<Persona> getArrayUtenti(Comparator<Persona> T){ //overload per scegliere l'ordinamento
         TreeSet<Persona> utentiOrdinati = new TreeSet<>(T);
         utentiOrdinati = this.utenti;
         return utentiOrdinati;
-    }
+    }*/
+
     public TreeSet<Persona> getUtenti() {
         return utenti;
     }
@@ -51,13 +55,39 @@ public class Scuola {
         ArrayList<Object> listaStudenti = new ArrayList<>();
         for(Object o : lista){
             if(o instanceof Studente)
-                listaStudenti.add(o);
+                listaStudenti.add(((Studente) o).cognome);
         }
         return listaStudenti;
     }
 
-    public void assegnaTutor(String tutor, String studente){
-        this.studenti.add(studente);
-        this.assegnazioneTutor.put(tutor,studenti);
+    public void assegnaTutor(Tutor t, Studente s){
+        this.studenti.add(s);
+        this.assegnazioneTutor.put(t,studenti);
+    }
+
+    public Tutor getSpecificTutor(String cognome){
+        Object[] arrayUtenti = this.utenti.toArray();
+        Tutor tutor = null;
+
+        for (Object p : arrayUtenti){
+            if(p instanceof Tutor && ((Tutor) p).getCognome().equalsIgnoreCase(cognome))
+                tutor = (Tutor) p;
+        }
+        return tutor;
+    }
+
+    public Studente getSpecificStudent(String cognome){
+        Object[] arrayUtenti = this.utenti.toArray();
+        Studente studente = null;
+
+        for (Object p : arrayUtenti){
+            if(p instanceof Studente && ((Studente) p).getCognome().equalsIgnoreCase(cognome))
+                studente = (Studente) p;
+        }
+        return studente;
+    }
+
+    public TreeMap<Tutor, ArrayList<Studente>> getAssegnazioneTutor() {
+        return assegnazioneTutor;
     }
 }
