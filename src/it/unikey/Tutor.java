@@ -36,10 +36,10 @@ public class Tutor extends Persona{
 
     @Override
     public String toString() {
-        return "Tutor{" +
+        return "TUTOR{" +
                 super.toString() +
-                "nascita='" + nascita + '\'' +
-                ", username='" + username + '\'' +
+                ", NASCITA='" + nascita + '\'' +
+                ", USERNAME='" + username + '\'' +
                 '}';
     }
 }

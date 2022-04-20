@@ -1,5 +1,6 @@
 package it.unikey;
 
+import java.io.Console;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -30,13 +31,21 @@ public class Scuola {
     }
 
     public boolean login(){
+        Console cnsl = System.console();
         boolean log= false;
         Scanner sc= new Scanner(System.in);
         System.out.println("Accesso menu");
         System.out.println("Username");
         String username= sc.nextLine();
         System.out.println("Password");
-        String password= sc.nextLine();
+        String password= "";
+        if (cnsl == null) {
+            System.out.println("No console available");
+        } else {
+            char[] pass = cnsl.readPassword(
+                    "Enter password : ");
+            password= Arrays.toString(pass);
+        }
         for(Tutor t: listaTutor) {
             if (t.getUsername().equals(username) && t.getPassword().equals(password)) {
                 log = true;
@@ -48,7 +57,7 @@ public class Scuola {
         return log;
     }
 
-    public Studente addStudente(){
+    public void addStudente(){
         Scanner sc= new Scanner(System.in);
         System.out.println("Nome studente:");
         String nome = sc.nextLine().toLowerCase().trim();
@@ -56,76 +65,70 @@ public class Scuola {
         System.out.println("Cognome studente:");
         String cognome = sc.nextLine().toLowerCase().trim();
         cognome= formattaString(cognome);
-        System.out.println("Tutor studente:");
+        System.out.println("Cognome tutor studente:");
         String cognomeTutor= sc.nextLine().toLowerCase().trim();
+        nome= formattaString(nome);
+        cognome= formattaString(cognome);
+        cognomeTutor= formattaString(cognomeTutor);
         Tutor tutor= null;
         for(Tutor t: listaTutor)
             if(t.getCognome().equals(cognomeTutor))
                 tutor= t;
         Studente sAdd = new Studente(nome, cognome, tutor);
         listaStudenti.add(sAdd);
-        return sAdd;
+        System.out.println("Studente "+nome+" "+cognome+" aggiunto");
     }
 
-    public Tutor addTutor(){
+    public void addTutor(){
         Scanner sc= new Scanner(System.in);
         System.out.println("Nome tutor:");
         String nome = sc.nextLine().toLowerCase().trim();
         System.out.println("Cognome tutor:");
         String cognome = sc.nextLine().toLowerCase().trim();
-        System.out.println("Data di nascita tutor (YYYYY-MM-DD):");
+        System.out.println("Data di nascita tutor (YYYY-MM-DD):");
         LocalDate nascita = LocalDate.parse(sc.nextLine().trim());
         System.out.println("Username tutor:");
         String username = sc.nextLine().trim();
+        nome= formattaString(nome);
+        cognome= formattaString(cognome);
         Tutor tAdd = new Tutor(nome, cognome, nascita, username);
         listaTutor.add(tAdd);
-        return tAdd;
+        System.out.println("Tutor "+nome+" "+cognome+" aggiunto");
     }
 
     public void listaStudentiArray(){
         ArrayList<Studente> newListaStudenti= new ArrayList<>();
         newListaStudenti.addAll(listaStudenti);
         System.out.println("Lista studenti (ArrayList): ");
-        for (Studente s : listaStudenti) {
-            System.out.print(newListaStudenti);
-        }
+        System.out.print(newListaStudenti);
     }
 
     public void listaTutorArray(){
-        TreeSet<Tutor> newListaTutor= new TreeSet<>();
+        ArrayList<Tutor> newListaTutor= new ArrayList<>();
         newListaTutor.addAll(listaTutor);
         System.out.println("Lista tutor (ArrayList): ");
-        for (Tutor tutor : listaTutor) {
-            System.out.print(tutor.toString());
-        }
+        System.out.print(newListaTutor);
     }
 
     public void listaStudentiTreeSet(){
         TreeSet<Studente> newListaStudenti= new TreeSet<>();
-        newListaStudenti.addAll(listaStudenti);
+        for(Studente x: listaStudenti)
+            newListaStudenti.add(x);
         System.out.println("Lista studenti (TreeSet): ");
-        for (Studente s : listaStudenti) {
-            System.out.print(newListaStudenti);
-        }
+        System.out.print(newListaStudenti);
     }
 
     public void listaTutorTreeSet(){
         TreeSet<Tutor> newListaTutor= new TreeSet<>();
         newListaTutor.addAll(listaTutor);
         System.out.println("Lista tutor (TreeSet): ");
-        for (Tutor tutor : listaTutor) {
-            System.out.print(tutor.toString());
-        }
+        System.out.print(newListaTutor);
     }
 
     public String formattaString(String parola){
-        char[] lettere= parola.toCharArray();
-        lettere[0]= Character.toUpperCase(lettere[0]);
-        for(int i=0; i<lettere.length; i++){
-            if(lettere[i]==' ')
-                lettere[i+1]= Character.toUpperCase(lettere[i+1]);
-        }
-        parola= lettere.toString();
-        return parola;
+        parola = parola.toLowerCase();
+        String temp = parola.substring(0, 1).toUpperCase();
+        String nomeMaiuscolo = temp + parola.substring(1);
+        return nomeMaiuscolo;
     }
 }

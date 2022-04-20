@@ -1,6 +1,6 @@
 package it.unikey;
 
-public class Persona {
+public class Persona implements Comparable<Persona>{
     private String nome;
     private String cognome;
 
@@ -27,8 +27,16 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                '}';
+        return "NOME='" + nome + '\'' +
+                ", COGNOME='" + cognome + '\'';
+    }
+
+    @Override
+    public int compareTo(Persona o) {
+        int result= 0;
+        result= this.getCognome().compareTo(o.getCognome());
+        if(result==0)
+            result= this.getNome().compareTo(o.getNome());
+        return result;
     }
 }

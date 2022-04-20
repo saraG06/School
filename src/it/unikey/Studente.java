@@ -1,8 +1,9 @@
 package it.unikey;
 
+import java.util.Comparator;
 import java.util.UUID;
 
-public class Studente extends Persona{
+public class Studente extends Persona {
 
     private UUID matricola;
     private Tutor tutor;
@@ -31,9 +32,9 @@ public class Studente extends Persona{
 
     @Override
     public String toString() {
-        return "Studente{" + super.toString() +
-                "matricola=" + matricola +
-                "tutor=" + tutor +
+        return "STUDENTE{" + super.toString() +
+                ", MATRICOLA= " + matricola +
+                ", TUTOR= " + tutor.getNome() + " " + tutor.getCognome() +
                 '}';
     }
 }
